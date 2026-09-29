@@ -1119,17 +1119,17 @@
 
     <div class="header-badge">Acervo Vivo Hiperconectado 2021–2024 · Base Canônica 577 Entidades</div>
     <div class="header-actions">
-      <button class="btn-action primary" onclick="openGlobalSearch()">
+      <button class="btn-action primary" style="font-size: 0.95rem; padding: 10px 22px; box-shadow: 0 4px 14px rgba(139,104,56,0.35);" onclick="openCompartment('CENTRO_JORNADA')">
+        <span>🚀</span> <strong>INICIAR JORNADA (CRIAR PERSONAGEM)</strong>
+      </button>
+      <button class="btn-action" onclick="openGlobalSearch()">
         <span>🔍</span> Buscar no Acervo (577 Entidades)
-      </button>
-      <button class="btn-action" onclick="openCompartment('CENTRO_ENGRENAGEM')">
-        <span>⚙️</span> Grafo Relacional (124 Conexões)
-      </button>
-      <button class="btn-action" onclick="openCompartment('CENTRO_ARQUIVO')">
-        <span>📊</span> Painel de Qualidade (Curadoria)
       </button>
       <button class="btn-action" onclick="openCompartment('CENTRO_MAPA')">
         <span>🗺️</span> Mapa Vivo
+      </button>
+      <button class="btn-action" onclick="openCompartment('CENTRO_ARQUIVO')">
+        <span>📊</span> Painel de Curadoria
       </button>
     </div>
   </header>
@@ -2209,24 +2209,130 @@
 
       if (hubId === 'CENTRO_JORNADA') {
         body.innerHTML = `
-          <div style="max-width: 880px; margin: 0 auto;">
-            <p style="font-size: 1.05rem; color: #4a3319; margin-bottom: 24px; text-align: center; font-weight: 600;">
-              O percurso formativo em Redondeta transforma a curiosidade pessoal de cada estudante em autoridade investigativa e intervenção ética no mundo.
-            </p>
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-              ${hub.stages.map(s => `
-                <div style="background: #ffffff; border: 1.5px solid var(--border-sepia); border-radius: 8px; padding: 18px 22px; display: flex; gap: 20px; align-items: flex-start; box-shadow: var(--shadow-card);">
-                  <span style="background: linear-gradient(135deg, #d4af37, #936c1a); color: #fff; font-weight: 900; font-family: var(--font-title); font-size: 1.2rem; min-width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">${s.step}</span>
-                  <div>
-                    <h3 style="font-family: var(--font-title); color: var(--text-ink-dark); font-size: 1.15rem; font-weight: 800; margin-bottom: 6px;">${s.title}</h3>
-                    <p style="color: var(--text-ink-muted); font-size: 0.94rem; line-height: 1.55;">${s.desc}</p>
-                  </div>
+          <div style="max-width: 900px; margin: 0 auto; padding-bottom: 30px;">
+            
+            <!-- DESTAQUE PRINCIPAL: LINK DO ARTEFATO CLAUDE PARA CRIAÇÃO DE PERSONAGEM -->
+            <div style="background: linear-gradient(135deg, #fffcf3 0%, #f7ecd2 100%); border: 2.5px solid var(--border-gold); border-radius: 12px; padding: 24px 28px; box-shadow: var(--shadow-card); text-align: center; margin-bottom: 28px; position: relative;">
+              <span style="background: linear-gradient(135deg, #d4af37, #8c6814); color: #fff; font-size: 0.8rem; font-weight: 800; padding: 4px 14px; border-radius: 20px; font-family: var(--font-title); letter-spacing: 1px; text-transform: uppercase;">
+                ⭐ Criador Oficial Interativo de Personagem
+              </span>
+              <h3 style="font-family: var(--font-title); font-size: 1.55rem; color: var(--text-ink-dark); margin: 12px 0 8px; font-weight: 900;">
+                Crie Sua Personagem de Redondeta
+              </h3>
+              <p style="color: var(--text-ink-body); font-size: 1rem; max-width: 720px; margin: 0 auto 18px; line-height: 1.55;">
+                Utilize o criador guiado no artefato interativo oficial. Ao preencher sua ficha passo a passo, seus dados, pesquisas e escolhas são automaticamente enviados para a pasta oficial de personagens do projeto no Google Drive!
+              </p>
+              
+              <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+                <a href="https://claude.ai/artifact/Cxeo8edza3i6TDFUrhJ17s" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="btn-action primary" 
+                   style="font-size: 1.05rem; padding: 12px 28px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 16px rgba(139,104,56,0.35);">
+                  <span>✨</span> <strong>Abrir o Criador de Personagem (Artefato Oficial) ↗</strong>
+                </a>
+              </div>
+              <div style="font-size: 0.82rem; color: var(--text-ink-muted); margin-top: 10px;">
+                Link direto: <code>https://claude.ai/artifact/Cxeo8edza3i6TDFUrhJ17s</code>
+              </div>
+            </div>
+
+            <!-- PASSO A PASSO GUIADO DE CRIAÇÃO -->
+            <div style="text-align: center; margin-bottom: 22px;">
+              <h4 style="font-family: var(--font-title); font-size: 1.3rem; color: var(--text-ink-dark); font-weight: 800;">
+                O Passo a Passo da Criação
+              </h4>
+              <p style="color: var(--text-ink-muted); font-size: 0.92rem;">
+                Entenda as etapas fundamentais percorridas no assistente de criação e no MAP (Mapa Avaliativo Processual)
+              </p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              
+              <!-- PASSO 1 -->
+              <div style="background: #ffffff; border: 1.5px solid var(--border-sepia); border-radius: 8px; padding: 18px 22px; display: flex; gap: 18px; align-items: flex-start; box-shadow: var(--shadow-card);">
+                <span style="background: linear-gradient(135deg, #d4af37, #936c1a); color: #fff; font-weight: 900; font-family: var(--font-title); font-size: 1.2rem; min-width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); flex-shrink: 0;">1</span>
+                <div>
+                  <h5 style="font-family: var(--font-title); color: var(--text-ink-dark); font-size: 1.15rem; font-weight: 800; margin-bottom: 4px;">
+                    1. Identidade e Escolha da Espécie (Animalfolk)
+                  </h5>
+                  <p style="color: var(--text-ink-body); font-size: 0.94rem; line-height: 1.5;">
+                    Defina o nome da personagem, pronome, povo de origem (Amazíndio, Andesíndio, Escândio, etc.) e a espécie zoológica ou botânica (com nome científico e nome popular). A espécie serve como âncora biológica para toda a criação.
+                  </p>
                 </div>
-              `).join('')}
+              </div>
+
+              <!-- PASSO 2 -->
+              <div style="background: #ffffff; border: 1.5px solid var(--border-sepia); border-radius: 8px; padding: 18px 22px; display: flex; gap: 18px; align-items: flex-start; box-shadow: var(--shadow-card);">
+                <span style="background: linear-gradient(135deg, #d4af37, #936c1a); color: #fff; font-weight: 900; font-family: var(--font-title); font-size: 1.2rem; min-width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); flex-shrink: 0;">2</span>
+                <div>
+                  <h5 style="font-family: var(--font-title); color: var(--text-ink-dark); font-size: 1.15rem; font-weight: 800; margin-bottom: 4px;">
+                    2. Pesquisa Científica: Vantagens e Fraquezas Naturais
+                  </h5>
+                  <p style="color: var(--text-ink-body); font-size: 0.94rem; line-height: 1.5;">
+                    Investigue a anatomia, sentidos, respiração, habitat e dieta da sua espécie em fontes confiáveis. Essas características biológicas reais fundamentam as Vantagens e as Fraquezas da personagem no jogo.
+                  </p>
+                </div>
+              </div>
+
+              <!-- PASSO 3 -->
+              <div style="background: #ffffff; border: 1.5px solid var(--border-sepia); border-radius: 8px; padding: 18px 22px; display: flex; gap: 18px; align-items: flex-start; box-shadow: var(--shadow-card);">
+                <span style="background: linear-gradient(135deg, #d4af37, #936c1a); color: #fff; font-weight: 900; font-family: var(--font-title); font-size: 1.2rem; min-width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); flex-shrink: 0;">3</span>
+                <div>
+                  <h5 style="font-family: var(--font-title); color: var(--text-ink-dark); font-size: 1.15rem; font-weight: 800; margin-bottom: 4px;">
+                    3. Atributos e Modificadores de Povo
+                  </h5>
+                  <p style="color: var(--text-ink-body); font-size: 0.94rem; line-height: 1.5;">
+                    Distribua e equilibre os 5 atributos essenciais: <strong>CON</strong> (Constituição), <strong>FOR</strong> (Força), <strong>DES</strong> (Destreza), <strong>INT</strong> (Inteligência) e <strong>COM</strong> (Comunicação), aplicando os modificadores específicos do seu povo e família.
+                  </p>
+                </div>
+              </div>
+
+              <!-- PASSO 4 -->
+              <div style="background: #ffffff; border: 1.5px solid var(--border-sepia); border-radius: 8px; padding: 18px 22px; display: flex; gap: 18px; align-items: flex-start; box-shadow: var(--shadow-card);">
+                <span style="background: linear-gradient(135deg, #d4af37, #936c1a); color: #fff; font-weight: 900; font-family: var(--font-title); font-size: 1.2rem; min-width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); flex-shrink: 0;">4</span>
+                <div>
+                  <h5 style="font-family: var(--font-title); color: var(--text-ink-dark); font-size: 1.15rem; font-weight: 800; margin-bottom: 4px;">
+                    4. História, Origem e Motivação Ética
+                  </h5>
+                  <p style="color: var(--text-ink-body); font-size: 0.94rem; line-height: 1.5;">
+                    Escreva o background da personagem: infância, laços comunitários, papel social e a motivação central que a leva a viajar e enfrentar as crises e Mazelas de Redondeta.
+                  </p>
+                </div>
+              </div>
+
+              <!-- PASSO 5 -->
+              <div style="background: #ffffff; border: 1.5px solid var(--border-sepia); border-radius: 8px; padding: 18px 22px; display: flex; gap: 18px; align-items: flex-start; box-shadow: var(--shadow-card);">
+                <span style="background: linear-gradient(135deg, #d4af37, #936c1a); color: #fff; font-weight: 900; font-family: var(--font-title); font-size: 1.2rem; min-width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); flex-shrink: 0;">5</span>
+                <div>
+                  <h5 style="font-family: var(--font-title); color: var(--text-ink-dark); font-size: 1.15rem; font-weight: 800; margin-bottom: 4px;">
+                    5. Conhecimento Encantado e Equipamentos
+                  </h5>
+                  <p style="color: var(--text-ink-body); font-size: 0.94rem; line-height: 1.5;">
+                    Formule sua magia ou item especial conectando um princípio científico real a um efeito narrativo no jogo, além de definir equipamentos equilibrados (onde a soma dos modificadores resulta em zero).
+                  </p>
+                </div>
+              </div>
+
+              <!-- PASSO 6 -->
+              <div style="background: #ffffff; border: 2px solid #baa769; border-radius: 8px; padding: 18px 22px; display: flex; gap: 18px; align-items: flex-start; box-shadow: var(--shadow-card);">
+                <span style="background: linear-gradient(135deg, #d4af37, #744210); color: #fff; font-weight: 900; font-family: var(--font-title); font-size: 1.2rem; min-width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); flex-shrink: 0;">6</span>
+                <div>
+                  <h5 style="font-family: var(--font-title); color: var(--text-ink-dark); font-size: 1.15rem; font-weight: 800; margin-bottom: 4px;">
+                    6. Conclusão da Ficha e Entrada no Acervo Vivo
+                  </h5>
+                  <p style="color: var(--text-ink-body); font-size: 0.94rem; line-height: 1.5;">
+                    Ao finalizar no artefato interativo, a ficha é encaminhada para validação do Professor-Mestre e inserida na pasta do Google Drive, pronta para atuar na próxima aventuraula!
+                  </p>
+                </div>
+              </div>
+
             </div>
+
             <div style="text-align: center; margin-top: 30px;">
-              <button class="btn-action primary" onclick="openCompartment('LSE')">Explorar os 64 Alunos-Heróis Criados →</button>
+              <button class="btn-action" onclick="openCompartment('LSE')">Explorar as Fichas dos 64 Alunos-Heróis Existentes →</button>
             </div>
+
           </div>
         `;
       } else if (hubId === 'CENTRO_METODOLOGIA') {
