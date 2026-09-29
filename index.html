@@ -2330,25 +2330,225 @@
         `;
       } else if (hubId === 'CENTRO_ENGRENAGEM') {
         body.innerHTML = `
-          <div style="max-width: 950px; margin: 0 auto;">
-            <p style="font-size: 1.05rem; color: #4a3319; margin-bottom: 20px; text-align: center; font-weight: 600;">
-              O motor hiperconectado de Redondeta: 124 relações canônicas mapeadas entre personagens, magias, itens, territórios e instituições.
-            </p>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-              ${hub.relations.map(r => `
-                <div class="relation-item-card" onclick="lookupAndOpenEntity('${r['ID Entidade A'] || ''}', '${r['Entidade A'] || ''}')">
-                  <div>
-                    <span class="rel-name">${r['Entidade A']}</span>
-                    <span class="rel-verb"> ${r['Relação']} </span>
-                    <span class="rel-name">${r['Entidade B']}</span>
-                    <p style="font-size: 0.84rem; color: var(--text-ink-muted); margin-top: 4px;">${r['Descrição'] || ''}</p>
+          <div style="max-width: 920px; margin: 0 auto; padding-bottom: 30px;">
+            
+            <!-- APRESENTAÇÃO DO ESQUEMA -->
+            <div style="text-align: center; margin-bottom: 26px; padding: 22px 24px; background: #fff; border: 2px solid var(--border-sepia); border-radius: 12px; box-shadow: var(--shadow-card);">
+              <div style="font-size: 2.2rem; margin-bottom: 6px;">⚙️</div>
+              <h3 style="font-family: var(--font-title); font-size: 1.5rem; color: var(--text-ink-dark); margin-bottom: 8px; font-weight: 900;">
+                O Ciclo Vivo de Redondeta: A Engrenagem Pedagógica
+              </h3>
+              <p style="color: var(--text-ink-muted); font-size: 1.02rem; max-width: 780px; margin: 0 auto; line-height: 1.6;">
+                Como funciona o motor do projeto: a pesquisa individual do estudante alimenta a criação da aventura pelo professor, a ação acontece no círculo mágico da aventuraula e, após os relatos, <strong>tudo o que foi feito permanece como legado permanente</strong> arquivado no mundo para as próximas aventuras.
+              </p>
+            </div>
+
+            <!-- FLUXOGRAMA VISUAL CONECTADO EM 5 ETAPAS -->
+            <div style="display: flex; flex-direction: column; gap: 0;">
+
+              <!-- ETAPA 1 -->
+              <div style="background: #ffffff; border: 2.5px solid #9b7834; border-radius: 12px; padding: 22px 26px; box-shadow: var(--shadow-card);">
+                <div style="display: flex; align-items: flex-start; gap: 18px;">
+                  <div style="background: linear-gradient(135deg, #d4af37, #8c6814); color: #fff; font-family: var(--font-title); font-weight: 900; font-size: 1.4rem; min-width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 8px rgba(0,0,0,0.2); flex-shrink: 0;">
+                    1
                   </div>
-                  <div style="text-align: right;">
-                    <span class="rel-badge">${r['Ano / Ciclo'] || 'Lore'}</span>
+                  <div style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                      <h4 style="font-family: var(--font-title); font-size: 1.28rem; color: var(--text-ink-dark); font-weight: 800;">
+                        O Aluno Cria uma Personagem Estudando
+                      </h4>
+                      <span style="background: #f6eedb; color: #735212; padding: 4px 12px; border-radius: 14px; font-size: 0.8rem; font-weight: 800; border: 1.5px solid var(--border-brass);">PESQUISA & CRIAÇÃO</span>
+                    </div>
+                    <p style="color: var(--text-ink-body); font-size: 0.98rem; margin-top: 8px; line-height: 1.55;">
+                      A criação da personagem nasce do <strong>interesse autêntico do estudante</strong>. Ele escolhe uma espécie viva (animal, planta ou elemento) e investiga sua anatomia, ecologia, comportamento e fisiologia em fontes científicas confiáveis.
+                    </p>
+                    <div style="background: #faf6ec; border-left: 4px solid var(--border-gold); padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0; font-size: 0.92rem; color: #4a3419;">
+                      <strong>Conhecimento Encantado:</strong> O saber biológico ou físico pesquisado se transforma em magia, item ou poder no jogo e é registrado no <em>MAP (Mapa Avaliativo Processual)</em>.
+                    </div>
+                    <div style="margin-top: 14px;">
+                      <button class="btn-action" style="padding: 6px 14px; font-size: 0.82rem;" onclick="openCompartment('LSE')">Explorar os 64 Alunos-Heróis no Acervo →</button>
+                    </div>
                   </div>
                 </div>
-              `).join('')}
+              </div>
+
+              <!-- SETA DE CONEXÃO 1 -> 2 -->
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0;">
+                <div style="width: 3px; height: 16px; background: var(--border-sepia);"></div>
+                <div style="background: #fbf5e7; border: 1.5px solid var(--border-sepia); border-radius: 20px; padding: 5px 16px; font-size: 0.84rem; font-weight: 700; color: #735212; margin: 4px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.06);">
+                  ↓ O repertório pesquisado pelo aluno alimenta o mestre
+                </div>
+                <div style="width: 3px; height: 16px; background: var(--border-sepia);"></div>
+                <span style="font-size: 1.2rem; color: var(--border-sepia); line-height: 1;">▼</span>
+              </div>
+
+              <!-- ETAPA 2 -->
+              <div style="background: #ffffff; border: 2.5px solid #789ec9; border-radius: 12px; padding: 22px 26px; box-shadow: var(--shadow-card);">
+                <div style="display: flex; align-items: flex-start; gap: 18px;">
+                  <div style="background: linear-gradient(135deg, #789ec9, #3182ce); color: #fff; font-family: var(--font-title); font-weight: 900; font-size: 1.4rem; min-width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 8px rgba(0,0,0,0.2); flex-shrink: 0;">
+                    2
+                  </div>
+                  <div style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                      <h4 style="font-family: var(--font-title); font-size: 1.28rem; color: var(--text-ink-dark); font-weight: 800;">
+                        O Professor Media e Cria a Aventura Baseada nos Alunos
+                      </h4>
+                      <span style="background: #ebf8ff; color: #2b6cb0; padding: 4px 12px; border-radius: 14px; font-size: 0.8rem; font-weight: 800; border: 1.5px solid #bee3f8;">WORLDBUILDING & MEDIAÇÃO</span>
+                    </div>
+                    <p style="color: var(--text-ink-body); font-size: 0.98rem; margin-top: 8px; line-height: 1.55;">
+                      O educador (Professor-Mestre) não impõe um enredo engessado: ele <strong>acolhe as personagens e as pesquisas dos estudantes</strong> e projeta desafios sob medida em Redondeta (como as 17 Mazelas / ODS da ONU, territórios em crise e dilemas éticos).
+                    </p>
+                    <div style="background: #f0f7fd; border-left: 4px solid #3182ce; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0; font-size: 0.92rem; color: #2a4365;">
+                      <strong>Trama Sob Medida:</strong> Cada personagem tem um papel insubstituível. As competências científicas individuais tornam-se essenciais para a sobrevivência e o avanço de todo o grupo.
+                    </div>
+                    <div style="margin-top: 14px;">
+                      <button class="btn-action" style="padding: 6px 14px; font-size: 0.82rem;" onclick="openCompartment('L')">Conhecer os Professores-Mestres e Mestrinhos →</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SETA DE CONEXÃO 2 -> 3 -->
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0;">
+                <div style="width: 3px; height: 16px; background: var(--border-sepia);"></div>
+                <div style="background: #fbf5e7; border: 1.5px solid var(--border-sepia); border-radius: 20px; padding: 5px 16px; font-size: 0.84rem; font-weight: 700; color: #735212; margin: 4px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.06);">
+                  ↓ Entrada no Círculo Mágico de Aprendizagem
+                </div>
+                <div style="width: 3px; height: 16px; background: var(--border-sepia);"></div>
+                <span style="font-size: 1.2rem; color: var(--border-sepia); line-height: 1;">▼</span>
+              </div>
+
+              <!-- ETAPA 3 -->
+              <div style="background: #ffffff; border: 2.5px solid #cb8484; border-radius: 12px; padding: 22px 26px; box-shadow: var(--shadow-card);">
+                <div style="display: flex; align-items: flex-start; gap: 18px;">
+                  <div style="background: linear-gradient(135deg, #e53e3e, #9b2c2c); color: #fff; font-family: var(--font-title); font-weight: 900; font-size: 1.4rem; min-width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 8px rgba(0,0,0,0.2); flex-shrink: 0;">
+                    3
+                  </div>
+                  <div style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                      <h4 style="font-family: var(--font-title); font-size: 1.28rem; color: var(--text-ink-dark); font-weight: 800;">
+                        Acontece a Aventuraula
+                      </h4>
+                      <span style="background: #fff5f5; color: #c53030; padding: 4px 12px; border-radius: 14px; font-size: 0.8rem; font-weight: 800; border: 1.5px solid #fed7d7;">CÍRCULO MÁGICO & JOGO</span>
+                    </div>
+                    <p style="color: var(--text-ink-body); font-size: 0.98rem; margin-top: 8px; line-height: 1.55;">
+                      A aula se transforma em uma <strong>aventuraula</strong> no círculo mágico (Huizinga). Dentro da <em>illusio</em>, os alunos agem e argumentam a partir de suas pesquisas, tomam decisões éticas difíceis diante de NPCs e enfrentam as consequências acumulativas de seus atos.
+                    </p>
+                    <div style="background: #fff8f8; border-left: 4px solid #e53e3e; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0; font-size: 0.92rem; color: #742a2a;">
+                      <strong>Tomada de Decisão com Peso Real:</strong> O conhecimento deixa de ser decorado para uma prova: ele é mobilizado ativamente para solucionar crises coletivas, negociar tratados e salvar o território.
+                    </div>
+                    <div style="margin-top: 14px;">
+                      <button class="btn-action" style="padding: 6px 14px; font-size: 0.82rem;" onclick="openCompartment('S')">Entender o Conceito de Aventuraula →</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SETA DE CONEXÃO 3 -> 4 -->
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0;">
+                <div style="width: 3px; height: 16px; background: var(--border-sepia);"></div>
+                <div style="background: #fbf5e7; border: 1.5px solid var(--border-sepia); border-radius: 20px; padding: 5px 16px; font-size: 0.84rem; font-weight: 700; color: #735212; margin: 4px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.06);">
+                  ↓ Conclusão da sessão e elaboração reflexiva
+                </div>
+                <div style="width: 3px; height: 16px; background: var(--border-sepia);"></div>
+                <span style="font-size: 1.2rem; color: var(--border-sepia); line-height: 1;">▼</span>
+              </div>
+
+              <!-- ETAPA 4 -->
+              <div style="background: #ffffff; border: 2.5px solid #a492c2; border-radius: 12px; padding: 22px 26px; box-shadow: var(--shadow-card);">
+                <div style="display: flex; align-items: flex-start; gap: 18px;">
+                  <div style="background: linear-gradient(135deg, #a492c2, #6b46c1); color: #fff; font-family: var(--font-title); font-weight: 900; font-size: 1.4rem; min-width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 8px rgba(0,0,0,0.2); flex-shrink: 0;">
+                    4
+                  </div>
+                  <div style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                      <h4 style="font-family: var(--font-title); font-size: 1.28rem; color: var(--text-ink-dark); font-weight: 800;">
+                        Conclusão da Sessão e Produção dos Relatos
+                      </h4>
+                      <span style="background: #faf5ff; color: #6b46c1; padding: 4px 12px; border-radius: 14px; font-size: 0.8rem; font-weight: 800; border: 1.5px solid #e9d8fd;">AUTORIA MULTIMODAL</span>
+                    </div>
+                    <p style="color: var(--text-ink-body); font-size: 0.98rem; margin-top: 8px; line-height: 1.55;">
+                      Ao término da aventuraula, a experiência vivida é elaborada pelo próprio estudante em um <strong>relato a partir do ponto de vista de sua personagem</strong>. Ele pode escolher a linguagem que melhor expressa sua voz: texto narrativo, história em quadrinhos (HQ), diário de bordo, ilustrações ou áudio.
+                    </p>
+                    <div style="background: #f8f4fc; border-left: 4px solid #805ad5; padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0; font-size: 0.92rem; color: #44337a;">
+                      <strong>Avaliação Processual:</strong> O relato registra a percepção do aluno, suas dúvidas e suas aprendizagens, integrando a documentação contínua de sua trajetória.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SETA DE CONEXÃO 4 -> 5 -->
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0;">
+                <div style="width: 3px; height: 16px; background: var(--border-sepia);"></div>
+                <div style="background: #fbf5e7; border: 1.5px solid var(--border-sepia); border-radius: 20px; padding: 5px 16px; font-size: 0.84rem; font-weight: 700; color: #735212; margin: 4px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.06);">
+                  ↓ O que é feito permanece como legado nos arquivos
+                </div>
+                <div style="width: 3px; height: 16px; background: var(--border-sepia);"></div>
+                <span style="font-size: 1.2rem; color: var(--border-sepia); line-height: 1;">▼</span>
+              </div>
+
+              <!-- ETAPA 5 -->
+              <div style="background: #ffffff; border: 3px solid #baa769; border-radius: 12px; padding: 22px 26px; box-shadow: var(--shadow-card);">
+                <div style="display: flex; align-items: flex-start; gap: 18px;">
+                  <div style="background: linear-gradient(135deg, #d4af37, #744210); color: #fff; font-family: var(--font-title); font-weight: 900; font-size: 1.4rem; min-width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 8px rgba(0,0,0,0.2); flex-shrink: 0;">
+                    5
+                  </div>
+                  <div style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                      <h4 style="font-family: var(--font-title); font-size: 1.28rem; color: var(--text-ink-dark); font-weight: 900;">
+                        O que é Feito Permanece como Legado e é Inserido nos Arquivos
+                      </h4>
+                      <span style="background: #fefcbf; color: #744210; padding: 4px 12px; border-radius: 14px; font-size: 0.8rem; font-weight: 800; border: 1.5px solid #faf089;">HISTÓRIA CUMULATIVA</span>
+                    </div>
+                    <p style="color: var(--text-ink-body); font-size: 0.98rem; margin-top: 8px; line-height: 1.55;">
+                      <strong>Este é o diferencial de Redondeta:</strong> o que a turma cria e decide não é apagado ao final do ano letivo. Leis promulgadas (como o livre casamento por Estália), universidades fundadas (como a UMEC por Sayani), tribunais (como a CIDAR por Zoya), hospitais, pontes e artefatos tornam-se <strong>história canônica do mundo</strong>.
+                    </p>
+                    <div style="background: #fffdf0; border-left: 4px solid var(--border-gold); padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0; font-size: 0.92rem; color: #5a3e14;">
+                      <strong>Acervo Vivo Permanente:</strong> O legado é indexado na base oficial (577 entidades) e passa a constituir a paisagem que novas gerações de estudantes vão encontrar e habitar!
+                    </div>
+                    <div style="margin-top: 14px;">
+                      <button class="btn-action primary" style="padding: 6px 14px; font-size: 0.84rem;" onclick="openCompartment('OSO')">Explorar a Galeria de Legados e Transformações Autorais →</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- O CICLO RECOMEÇA: A PRÓXIMA AVENTURA -->
+              <div style="margin-top: 24px; padding: 22px 26px; background: linear-gradient(135deg, #f7eed8 0%, #ede0bd 100%); border: 2.5px dashed #9b7834; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+                <div style="font-size: 2rem; margin-bottom: 6px;">🔄</div>
+                <h4 style="font-family: var(--font-title); font-size: 1.25rem; color: #3d2810; font-weight: 900;">
+                  E o Ciclo Recomeça: A Próxima Aventura!
+                </h4>
+                <p style="color: var(--text-ink-muted); font-size: 0.96rem; max-width: 740px; margin: 8px auto 0; line-height: 1.55;">
+                  Com o mundo enriquecido pelas criações anteriores, a próxima turma ou antigos estudantes que retornam como <em>Mestrinhos</em> iniciam um novo ciclo de pesquisa, encontros e transformações, mantendo Redondeta para sempre como um <strong>acervo vivo</strong>.
+                </p>
+              </div>
+
             </div>
+
+            <!-- ÍNDICE RELACIONAL COMPACTO (OPCIONAL) -->
+            <details style="margin-top: 30px; background: #fff; border: 1.5px solid var(--border-sepia); border-radius: 10px; padding: 14px 18px; box-shadow: var(--shadow-card);">
+              <summary style="font-family: var(--font-title); font-size: 0.95rem; color: #735212; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                <span>🔗 Ver Índice Técnico das 124 Relações Canônicas Mapeadas</span>
+                <span style="font-size: 0.78rem; background: #f6eedb; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border-brass);">Expandir ▾</span>
+              </summary>
+              <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+                ${hub.relations.map(r => `
+                  <div class="relation-item-card" onclick="lookupAndOpenEntity('${r['ID Entidade A'] || ''}', '${r['Entidade A'] || ''}')">
+                    <div>
+                      <span class="rel-name">${r['Entidade A']}</span>
+                      <span class="rel-verb"> ${r['Relação']} </span>
+                      <span class="rel-name">${r['Entidade B']}</span>
+                      <p style="font-size: 0.84rem; color: var(--text-ink-muted); margin-top: 4px;">${r['Descrição'] || ''}</p>
+                    </div>
+                    <div style="text-align: right;">
+                      <span class="rel-badge">${r['Ano / Ciclo'] || 'Lore'}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </details>
+
           </div>
         `;
       }
