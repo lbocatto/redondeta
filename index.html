@@ -202,144 +202,131 @@
       user-select: none;
     }
 
-    /* COMPASS SVG ELEMENTS */
+    /* COMPASS SVG ELEMENTS - ELEGANTES, SEM NEGRITO EXAGERADO, CLARAS E LEGÍVEIS */
     .sector-slice {
       fill: var(--sector-color, #7aa687);
       fill-opacity: 0.72;
-      stroke: #6b4e23;
-      stroke-width: 1.5;
+      stroke: #7a5c2e;
+      stroke-width: 1.2;
       cursor: pointer;
       transition: all 0.25s ease;
     }
     .sector-group:hover .sector-slice {
-      fill-opacity: 0.98;
-      stroke: #1a1005;
-      stroke-width: 3;
-      filter: drop-shadow(0 0 12px rgba(90, 60, 20, 0.5));
+      fill-opacity: 0.95;
+      stroke: #2e1d08;
+      stroke-width: 2.2;
+      filter: drop-shadow(0 0 8px rgba(80, 50, 20, 0.35));
     }
 
-    /* Outer Full Direction Name - LARGE, BOLD & CRISP IN BRAZILIAN PORTUGUESE */
+    /* Outer Full Direction Name - Elegante, limpo e legível (sem negrito pesado ou traço grosso) */
     .full-direction-label {
-      fill: #221204;
+      fill: #322110;
       font-family: var(--font-title);
-      font-size: 14.5px;
-      font-weight: 900;
+      font-size: 12.5px;
+      font-weight: 600;
       text-anchor: middle;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.5px;
       pointer-events: none;
-      paint-order: stroke fill;
-      stroke: rgba(253, 248, 237, 0.98);
-      stroke-width: 3.5px;
-      stroke-linejoin: round;
     }
     .sector-group:hover .full-direction-label {
       fill: #8b2b1a;
-      stroke: #ffffff;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     /* Direction badge on sector outer edge */
     .direction-badge-bg {
-      fill: #fdfcf7;
-      stroke: #6b4e23;
-      stroke-width: 2;
+      fill: #fcfbf6;
+      stroke: #7a5c2e;
+      stroke-width: 1.4;
       pointer-events: none;
     }
     .direction-badge-text {
-      fill: #2e1a06;
+      fill: #322110;
       font-family: var(--font-title);
-      font-size: 12.5px;
-      font-weight: 900;
+      font-size: 11.5px;
+      font-weight: 600;
       text-anchor: middle;
       pointer-events: none;
     }
 
-    /* Sector Title Text - LARGE & BOLD (15.5px) WITH PROTECTIVE HALO */
+    /* Sector Title Text - Sem negrito pesado, equilibrado e nítido */
     .sector-title-text {
-      fill: #120b04;
-      font-family: var(--font-title);
-      font-size: 15.5px;
-      font-weight: 900;
+      fill: #1a1106;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
       text-anchor: middle;
       pointer-events: none;
-      letter-spacing: 0.35px;
-      paint-order: stroke fill;
-      stroke: rgba(255, 255, 255, 0.92);
-      stroke-width: 3.8px;
-      stroke-linejoin: round;
+      letter-spacing: 0.2px;
     }
     .sector-group:hover .sector-title-text {
       fill: #000000;
-      stroke: #ffffff;
+      font-weight: 700;
     }
 
-    /* INNER QUADRANTS - LARGE & BOLD (17.5px) */
+    /* INNER QUADRANTS - Equilibrados e limpos */
     .inner-quad-slice {
       fill: var(--quad-color, #e08d48);
-      fill-opacity: 0.82;
-      stroke: #5a3c14;
-      stroke-width: 2.5;
+      fill-opacity: 0.8;
+      stroke: #684a20;
+      stroke-width: 1.8;
       cursor: pointer;
       transition: all 0.25s ease;
     }
     .inner-quad-group:hover .inner-quad-slice {
-      fill-opacity: 1;
-      stroke-width: 3.8;
-      filter: drop-shadow(0 0 14px rgba(80, 50, 20, 0.55));
+      fill-opacity: 0.98;
+      stroke-width: 2.8;
+      filter: drop-shadow(0 0 10px rgba(80, 50, 20, 0.4));
     }
     .inner-quad-text {
-      fill: #140c04;
+      fill: #1a1005;
       font-family: var(--font-title);
-      font-size: 17.5px;
-      font-weight: 900;
+      font-size: 14.5px;
+      font-weight: 600;
       text-anchor: middle;
       pointer-events: none;
-      letter-spacing: 0.6px;
-      paint-order: stroke fill;
-      stroke: rgba(255, 255, 255, 0.92);
-      stroke-width: 4.2px;
-      stroke-linejoin: round;
+      letter-spacing: 0.4px;
     }
 
-    /* CENTER GEAR BUTTON - CRISP & READABLE */
+    /* CENTER GEAR BUTTON - Nítido e limpo */
     .center-hub-group {
       cursor: pointer;
       transition: transform 0.3s ease;
     }
     .center-hub-group:hover {
-      filter: drop-shadow(0 0 20px rgba(184, 134, 11, 0.8));
+      filter: drop-shadow(0 0 14px rgba(184, 134, 11, 0.6));
     }
     .gear-tooth-brass {
       fill: #caa24d;
-      stroke: #593e11;
-      stroke-width: 1.5;
+      stroke: #6b4d1b;
+      stroke-width: 1.2;
     }
 
     .center-gear-title-1 {
       font-family: var(--font-title);
-      font-size: 16px;
-      font-weight: 900;
-      fill: #1a0f03;
-      text-anchor: middle;
-      letter-spacing: 1.4px;
-      pointer-events: none;
-    }
-    .center-gear-title-2 {
-      font-family: var(--font-title);
-      font-size: 15px;
-      font-weight: 900;
-      fill: #1a0f03;
+      font-size: 14px;
+      font-weight: 700;
+      fill: #1f1306;
       text-anchor: middle;
       letter-spacing: 1.2px;
       pointer-events: none;
     }
+    .center-gear-title-2 {
+      font-family: var(--font-title);
+      font-size: 13px;
+      font-weight: 700;
+      fill: #1f1306;
+      text-anchor: middle;
+      letter-spacing: 1px;
+      pointer-events: none;
+    }
     .center-gear-sub {
       font-family: var(--font-sans);
-      font-size: 11px;
-      font-weight: 800;
-      fill: #543b1c;
+      font-size: 9.5px;
+      font-weight: 500;
+      fill: #614624;
       text-anchor: middle;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       pointer-events: none;
     }
 
@@ -2263,18 +2250,72 @@
         `;
       } else if (hubId === 'CENTRO_MAPA') {
         body.innerHTML = `
-          <div style="max-width: 1050px; margin: 0 auto;">
-            <p style="font-size: 1.05rem; color: #4a3319; margin-bottom: 24px; text-align: center; font-weight: 600;">
-              Os 12 grandes territórios de Redondeta e suas conexões biogeográficas e culturais.
-            </p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
-              ${hub.regions.map(r => `
-                <div style="background: #ffffff; border: 1.5px solid var(--border-sepia); border-radius: 8px; padding: 18px; cursor: pointer; box-shadow: var(--shadow-card);" onclick="openCompartment('NNE')">
-                  <h3 style="font-family: var(--font-title); color: #205c7c; font-size: 1.15rem; font-weight: 800; margin-bottom: 6px;">${r.name}</h3>
-                  <p style="color: var(--text-ink-muted); font-size: 0.88rem; line-height: 1.48;">${r.desc}</p>
-                </div>
-              `).join('')}
+          <div style="max-width: 980px; margin: 0 auto; padding-bottom: 30px;">
+            
+            <!-- HEADER DO MAPA VIVO -->
+            <div style="text-align: center; margin-bottom: 22px; padding: 20px 24px; background: #fff; border: 1.5px solid var(--border-sepia); border-radius: 10px; box-shadow: var(--shadow-card);">
+              <div style="font-size: 2.2rem; margin-bottom: 6px;">🗺️</div>
+              <h3 style="font-family: var(--font-title); font-size: 1.5rem; color: var(--text-ink-dark); margin-bottom: 8px; font-weight: 800;">
+                Mapa Mundi de Redondeta (Canônico 2023)
+              </h3>
+              <p style="color: var(--text-ink-muted); font-size: 0.98rem; max-width: 780px; margin: 0 auto; line-height: 1.6;">
+                Cartografia viva com os 12 continentes, territórios submarinos, regiões polares, rotas de navegação e a tabela oficial de Modificadores de Povo.
+              </p>
             </div>
+
+            <!-- CARD VISUAL DO MAPA MUNDI -->
+            <div style="background: #ffffff; border: 2px solid var(--border-sepia); border-radius: 12px; padding: 18px; box-shadow: var(--shadow-card); margin-bottom: 25px; text-align: center;">
+              
+              <!-- IMAGEM / PREVIEW DO MAPA -->
+              <div style="position: relative; overflow: hidden; border-radius: 8px; border: 1.5px solid #d5c39c; background: #fdfbf7;">
+                <img src="https://lh3.googleusercontent.com/d/1-lOMnnfcCbkIbWywmHF9ynaO662I4BgH=w1600" 
+                     alt="Mapa Mundi de Redondeta 2023" 
+                     style="width: 100%; height: auto; max-height: 650px; object-fit: contain; display: block; margin: 0 auto;"
+                     onerror="this.style.display='none'; document.getElementById('mapa-drive-iframe').style.display='block';">
+                
+                <!-- Fallback Iframe se o thumbnail não carregar -->
+                <iframe id="mapa-drive-iframe" 
+                        src="https://drive.google.com/file/d/1-lOMnnfcCbkIbWywmHF9ynaO662I4BgH/preview" 
+                        style="width: 100%; height: 550px; border: none; display: none;"></iframe>
+              </div>
+
+              <!-- HIPERLINK DESTACADO PARA O ARQUIVO ORIGINAL NO GOOGLE DRIVE -->
+              <div style="margin-top: 18px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <a href="https://drive.google.com/file/d/1-lOMnnfcCbkIbWywmHF9ynaO662I4BgH/view?usp=sharing" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="btn-action primary" 
+                   style="font-size: 1.02rem; padding: 12px 24px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 14px rgba(139,104,56,0.3);">
+                  <span>🗺️</span> <strong>Ver Mapa Mundi em Alta Resolução no Google Drive (Arquivo Original) ↗</strong>
+                </a>
+                <span style="font-size: 0.82rem; color: var(--text-ink-muted);">
+                  Arquivo canônico em alta definição (PNG de 70 MB) hospedado no Drive oficial do projeto.
+                </span>
+              </div>
+            </div>
+
+            <!-- ATLAS TERRITORIAL DOS 12 CONTINENTES -->
+            <div style="background: #ffffff; border: 1.5px solid var(--border-sepia); border-radius: 10px; padding: 22px; box-shadow: var(--shadow-card);">
+              <h4 style="font-family: var(--font-title); font-size: 1.2rem; color: var(--text-ink-dark); margin-bottom: 14px; font-weight: 800; border-bottom: 1.5px solid rgba(139,104,56,0.2); padding-bottom: 8px;">
+                Os Grandes Territórios Mapeados
+              </h4>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+                ${hub.regions.map(r => `
+                  <div style="background: #fcf9f0; border: 1px solid rgba(139, 104, 56, 0.25); border-radius: 8px; padding: 14px; cursor: pointer; transition: all 0.2s;" 
+                       onmouseover="this.style.background='#f6eedb'; this.style.borderColor='var(--border-sepia)';" 
+                       onmouseout="this.style.background='#fcf9f0'; this.style.borderColor='rgba(139, 104, 56, 0.25)';" 
+                       onclick="openCompartment('NNE')">
+                    <h5 style="font-family: var(--font-title); color: #205c7c; font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">${r.name}</h5>
+                    <p style="color: var(--text-ink-muted); font-size: 0.86rem; line-height: 1.45;">${r.desc}</p>
+                  </div>
+                `).join('')}
+              </div>
+              <div style="text-align: center; margin-top: 20px;">
+                <button class="btn-action" onclick="openCompartment('NNE')">Ver Todos os Continentes e Regiões Detalhados →</button>
+              </div>
+            </div>
+
           </div>
         `;
       } else if (hubId === 'CENTRO_ARQUIVO') {
