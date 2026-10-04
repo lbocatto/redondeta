@@ -891,7 +891,7 @@
       inset: 0;
       background: rgba(30, 20, 10, 0.75);
       backdrop-filter: blur(10px);
-      z-index: 200;
+      z-index: 400;
       display: none;
       align-items: flex-start;
       justify-content: center;
@@ -1745,13 +1745,13 @@
   </svg>
 </div>
 
-    <div class="header-badge">Acervo Vivo Hiperconectado · Período coberto 2021–2026 · Base: <span data-acervo="registros">1.021</span> registros indexados</div>
+    <div class="header-badge">Acervo Vivo Hiperconectado · Período coberto 2021–2026 · Base: <span data-acervo="registros">1.415</span> registros indexados</div>
     <div class="header-actions">
       <button class="btn-action primary" style="font-size: 0.95rem; padding: 10px 22px; box-shadow: 0 4px 14px rgba(139,104,56,0.35);" onclick="openCompartment('CENTRO_JORNADA')">
         <span>🚀</span> <strong>INICIAR JORNADA (CRIAR PERSONAGEM)</strong>
       </button>
       <button class="btn-action" onclick="openGlobalSearch()">
-        <span>🔍</span> Buscar no Acervo (<span data-acervo="registros">1.021</span> registros)
+        <span>🔍</span> Buscar no Acervo (<span data-acervo="registros">1.415</span> registros)
       </button>
       <button class="btn-action" onclick="openCompartment('CENTRO_MAPA')">
         <span>🗺️</span> Mapa Vivo
@@ -2071,7 +2071,7 @@
         <button class="btn-close" onclick="closeGlobalSearch()">✕</button>
       </div>
       <div class="search-modal-results" id="global-search-results">
-        <p style="color: var(--text-ink-muted); text-align: center; margin-top: 20px;">Digite para pesquisar em todo o acervo vivo de <span data-acervo="registros">1.021</span> registros indexados...</p>
+        <p style="color: var(--text-ink-muted); text-align: center; margin-top: 20px;">Digite para pesquisar em todo o acervo vivo de <span data-acervo="registros">1.415</span> registros indexados...</p>
       </div>
     </div>
   </div>
@@ -2782,7 +2782,8 @@
       currentViewMode = mode;
       document.getElementById('btn-view-cards').classList.toggle('active', mode === 'cards');
       document.getElementById('btn-view-table').classList.toggle('active', mode === 'table');
-      renderCompartmentContent(currentCompartment);
+      if (currentCompartment && !currentCompartment.startsWith('CENTRO_')) handleCompartmentFilter();
+      else renderCompartmentContent(currentCompartment);
     }
 
     function handleCompartmentFilter() {
@@ -2839,13 +2840,22 @@
         });
         body.appendChild(grid);
       } else {
+        // Compartimentos que reúnem abas diferentes (ex.: ONO, SSE, L) têm colunas diferentes: uma tabela por estrutura
+        const groups = [];
+        records.forEach(item => {
+          const keys = Object.keys(item).filter(k => !k.startsWith('col_') && k !== 'Status documental normalizado');
+          const sig = keys.join('|');
+          let g = groups.find(x => x.sig === sig);
+          if (!g) groups.push(g = { sig, keys, items: [] });
+          g.items.push(item);
+        });
+        groups.forEach(({ keys, items }) => {
         const tableWrap = document.createElement('div');
         tableWrap.className = 'entities-table-wrap';
+        if (groups.length > 1) tableWrap.style.marginBottom = '18px';
         const table = document.createElement('table');
         table.className = 'entities-table';
 
-        const sample = records[0];
-        const keys = Object.keys(sample).filter(k => !k.startsWith('col_') && k !== 'Status documental normalizado');
         const thead = document.createElement('thead');
         const trH = document.createElement('tr');
         keys.slice(0, 7).forEach(k => {
@@ -2857,7 +2867,7 @@
         table.appendChild(thead);
 
         const tbody = document.createElement('tbody');
-        records.forEach(item => {
+        items.forEach(item => {
           const tr = document.createElement('tr');
           tr.onclick = () => openEntityDetail(item, meta.card_type);
           keys.slice(0, 7).forEach(k => {
@@ -2870,6 +2880,7 @@
         table.appendChild(tbody);
         tableWrap.appendChild(table);
         body.appendChild(tableWrap);
+        });
       }
     }
 
@@ -2935,8 +2946,19 @@
       const status = item['Status / Confiança'] || item['Status documental normalizado'] || item['Status'] || '';
       let title = item['Orbe'] || item['Personagem'] || item['Nome'] || item['NPC'] || item['Vilão / Força'] || item['Organização / Instituição'] || item['Item / Artefato'] || item['Evento / Campanha'] || item['Local'] || item['Povo / Etnia'] || item['Tema'] || item['Termo'] || item['Documento'] || item['Tarefa'] || item['Ciclo'] || item['Nome / Entidade'] || '';
       if (item['ODS de referência']) title = (String(item['ID Universal'] || '').startsWith('ORB-') ? 'Orbe ' : 'Mazela ') + item['Nº'] + ' — ' + item['ODS de referência'];
+      const isRelacao = cardType === 'relacao';
+      if (isRelacao) title = `${item['Entidade A'] || ''} — ${item['Relação'] || ''} — ${item['Entidade B'] || ''}`;
 
-      const relations = getRelationsForEntity(id, title);
+      const relations = isRelacao
+        ? [['A', 'Entidade A'], ['B', 'Entidade B']].map(([p, label]) => ({
+            relation: label,
+            partner_id: (item['ID Entidade ' + p] || '').trim(),
+            partner_name: item['Entidade ' + p] || '',
+            partner_type: item['Tipo ' + p] || 'Entidade',
+            desc: '',
+            direction: p === 'A' ? 'in' : 'out'
+          })).filter(r => r.partner_name)
+        : getRelationsForEntity(id, title);
 
       let imageHtml = '';
       const entImgs = getEntityImages(id);
@@ -2985,6 +3007,7 @@
       let fieldsHtml = '';
       for (const [k, v] of Object.entries(item)) {
         if (!v || k.startsWith('col_') || k === 'Status documental normalizado') continue;
+        if (isRelacao && ['ID Entidade A', 'ID Entidade B', 'Observação de normalização', 'Status de conexão', 'Relação de referência'].includes(k)) continue;
         fieldsHtml += `
           <div class="detail-field">
             <div class="detail-field-label">${k}</div>
@@ -3139,6 +3162,14 @@
       const all = getAllEntitiesList();
       let found = null;
       let cardType = 'entidade';
+
+      // 0. Relação (REL-xxx): abre a ficha da própria relação
+      const rel = (idNorm && idNorm !== '—') ? (REDONDETA_DATA.relations || []).find(r => (r.ID || '').trim() === idNorm) : null;
+      if (rel) {
+        closeGlobalSearch();
+        openEntityDetail(rel, 'relacao');
+        return;
+      }
 
       // 1. Direct ID match (prefere o compartimento da 'Aba de origem' do índice quando o ID aparece em mais de um)
       if (idNorm && idNorm !== '—') {
@@ -3511,7 +3542,7 @@
                     <span style="font-size: 0.78rem; opacity: 0.75; margin-left: 8px;">(${l.Área || 'Curadoria'})</span>
                     <p style="color: var(--text-ink-muted); font-size: 0.85rem; margin-top: 3px;">${l['Pendência / Contradição'] || l['Lacuna principal'] || ''}</p>
                   </div>
-                  <span style="font-size: 0.75rem; background: #f6eedb; color: #5a3c10; font-weight: 700; padding: 4px 10px; border-radius: 12px; white-space: nowrap; border: 1px solid var(--border-brass);">${l['Próxima ação sugerida'] || l['Próxima ação'] || 'Investigar'}</span>
+                  <span style="font-size: 0.75rem; background: #f6eedb; color: #5a3c10; font-weight: 700; padding: 4px 10px; border-radius: 12px; white-space: normal; max-width: 45%; flex-shrink: 0; text-align: right; line-height: 1.35; border: 1px solid var(--border-brass);">${l['Próxima ação sugerida'] || l['Próxima ação'] || 'Investigar'}</span>
                 </div>
               `).join('')}
             </div>
