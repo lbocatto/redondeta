@@ -1745,13 +1745,13 @@
   </svg>
 </div>
 
-    <div class="header-badge">Acervo Vivo Hiperconectado · Período coberto 2021–2026 · Base: 1.023 registros indexados</div>
+    <div class="header-badge">Acervo Vivo Hiperconectado · Período coberto 2021–2026 · Base: <span data-acervo="registros">1.021</span> registros indexados</div>
     <div class="header-actions">
       <button class="btn-action primary" style="font-size: 0.95rem; padding: 10px 22px; box-shadow: 0 4px 14px rgba(139,104,56,0.35);" onclick="openCompartment('CENTRO_JORNADA')">
         <span>🚀</span> <strong>INICIAR JORNADA (CRIAR PERSONAGEM)</strong>
       </button>
       <button class="btn-action" onclick="openGlobalSearch()">
-        <span>🔍</span> Buscar no Acervo (1.023 registros)
+        <span>🔍</span> Buscar no Acervo (<span data-acervo="registros">1.021</span> registros)
       </button>
       <button class="btn-action" onclick="openCompartment('CENTRO_MAPA')">
         <span>🗺️</span> Mapa Vivo
@@ -2071,7 +2071,7 @@
         <button class="btn-close" onclick="closeGlobalSearch()">✕</button>
       </div>
       <div class="search-modal-results" id="global-search-results">
-        <p style="color: var(--text-ink-muted); text-align: center; margin-top: 20px;">Digite para pesquisar em todo o acervo vivo de 1.023 registros indexados...</p>
+        <p style="color: var(--text-ink-muted); text-align: center; margin-top: 20px;">Digite para pesquisar em todo o acervo vivo de <span data-acervo="registros">1.021</span> registros indexados...</p>
       </div>
     </div>
   </div>
@@ -2094,6 +2094,28 @@
     let currentViewMode = 'cards';
     let currentFilteredRecords = [];
     let currentFilterYear = 'all';
+
+    // ESTATÍSTICAS DO ACERVO: sempre derivadas de REDONDETA_DATA, para não divergirem dos dados
+    function getAcervoStats() {
+      const indice = REDONDETA_DATA.indice || [];
+      const registros = indice.length;
+      const confirmadas = indice.filter(e => String(e['Status documental'] || '').toLowerCase().startsWith('confirmad')).length;
+      return {
+        registros,
+        confirmadas,
+        taxa: registros ? (confirmadas / registros * 100).toFixed(1).replace('.', ',') + '%' : '—',
+        relacoes: (REDONDETA_DATA.relations || []).length,
+        fontes: indice.filter(e => String(e['ID Universal'] || '').startsWith('FONTE-')).length
+      };
+    }
+    function fmtNum(n) { return Number(n).toLocaleString('pt-BR'); }
+    (function fillAcervoCounts() {
+      const st = getAcervoStats();
+      document.querySelectorAll('[data-acervo]').forEach(el => {
+        const v = st[el.getAttribute('data-acervo')];
+        if (v !== undefined) el.textContent = typeof v === 'number' ? fmtNum(v) : v;
+      });
+    })();
 
     // Hover effect on compass sectors
     document.querySelectorAll('.sector-group').forEach(el => {
@@ -2860,16 +2882,16 @@
       const status = item['Status / Confiança'] || item['Status documental normalizado'] || item['Status'] || '';
       const statusClass = status.toLowerCase().includes('confirmado') ? 'status-confirmado' : (status.toLowerCase().includes('provável') ? 'status-provavel' : 'status-desconhecido');
 
-      let title = item['Orbe'] || item['Tarefa'] || item['Título'] || item['Quest'] || item['Missão'] || item['Personagem'] || item['Nome'] || item['NPC'] || item['Vilão / Força'] || item['Organização / Instituição'] || item['Item / Artefato'] || item['Evento / Campanha'] || item['Local'] || item['Povo / Etnia'] || item['Tema'] || item['Termo'] || item['Documento'] || '';
+      let title = item['Orbe'] || item['Tarefa'] || item['Título'] || item['Quest'] || item['Missão'] || item['Personagem'] || item['Nome'] || item['NPC'] || item['Vilão / Força'] || item['Organização / Instituição'] || item['Item / Artefato'] || item['Evento / Campanha'] || item['Local'] || item['Povo / Etnia'] || item['Tema'] || item['Termo'] || item['Documento'] || item['Ciclo'] || '';
       if (item['ODS de referência']) title = (String(item['ID Universal'] || '').startsWith('ORB-') ? 'Orbe ' : 'Mazela ') + item['Nº'] + ' — ' + item['ODS de referência'];
 
-      let subtitle = (item['Mazela correspondente (nome)'] ? ('Contém a Mazela: ' + item['Mazela correspondente (nome)']) : '') || item['Modalidade'] || item['Papel Social / Legado'] || item['Tipo / Função'] || item['Povo / Região'] || item['Tipo'] || item['Espécies / Grupos'] || item['Área'] || item['Categoria'] || '';
+      let subtitle = (item['Mazela correspondente (nome)'] ? ('Contém a Mazela: ' + item['Mazela correspondente (nome)']) : '') || item['Modalidade'] || item['Papel Social / Legado'] || item['Tipo / Função'] || item['Povo / Região'] || item['Tipo'] || item['Espécies / Grupos'] || item['Área'] || item['Categoria'] || (item['Antagonista Central'] ? ('Antagonista: ' + item['Antagonista Central']) : '') || '';
 
       if (cardType === 'povo') {
         const pIcon = getPovoIcon(title, item['Espécies / Grupos']);
         title = `${pIcon} ${title}`;
       }
-      let snippet = item['Descrição / História'] || item['Descrição detalhada'] || item['Descrição'] || item['Manifestação documentada em Redondeta'] || item['Definição em Redondeta'] || item['Ação / Papel antagônico'] || item['Conflito / Objetivo'] || item['Descrição científica / conceitual'] || item['Descrição histórica'] || (item['Portadores / Guardiões 2023'] ? ('Portadores em 2023: ' + item['Portadores / Guardiões 2023']) : '') || '';
+      let snippet = item['Descrição / História'] || item['Descrição detalhada'] || item['Descrição'] || item['Manifestação documentada em Redondeta'] || item['Definição em Redondeta'] || item['Ação / Papel antagônico'] || item['Conflito / Objetivo'] || item['Descrição científica / conceitual'] || item['Descrição histórica'] || (item['Portadores / Guardiões 2023'] ? ('Portadores em 2023: ' + item['Portadores / Guardiões 2023']) : '') || item['Descrição / Efeito'] || item['Caracterização'] || item['Conflito Principal'] || item['Finalidade pedagógica'] || item['Transformação / Legado'] || item['Conteúdo prioritário'] || '';
 
       const year = item['Ano'] || item['Ano / Período'] || item['Período'] || item['Período / Ciclo'] || '';
 
@@ -2911,7 +2933,7 @@
 
       const id = item['ID Universal'] || item['ID'] || item['ID Personagem'] || item['Nº'] || '';
       const status = item['Status / Confiança'] || item['Status documental normalizado'] || item['Status'] || '';
-      let title = item['Orbe'] || item['Personagem'] || item['Nome'] || item['NPC'] || item['Vilão / Força'] || item['Organização / Instituição'] || item['Item / Artefato'] || item['Evento / Campanha'] || item['Local'] || item['Povo / Etnia'] || item['Tema'] || item['Termo'] || item['Documento'] || '';
+      let title = item['Orbe'] || item['Personagem'] || item['Nome'] || item['NPC'] || item['Vilão / Força'] || item['Organização / Instituição'] || item['Item / Artefato'] || item['Evento / Campanha'] || item['Local'] || item['Povo / Etnia'] || item['Tema'] || item['Termo'] || item['Documento'] || item['Tarefa'] || item['Ciclo'] || item['Nome / Entidade'] || '';
       if (item['ODS de referência']) title = (String(item['ID Universal'] || '').startsWith('ORB-') ? 'Orbe ' : 'Mazela ') + item['Nº'] + ' — ' + item['ODS de referência'];
 
       const relations = getRelationsForEntity(id, title);
@@ -3144,8 +3166,10 @@
         }
       }
 
-      // 3. Name split slash or contains match
-      if (!found && nameNorm) {
+      // 3. Name split slash or contains match (só quando o ID não identifica um registro do índice;
+      //    senão a correspondência aproximada abriria outra entidade, ex.: "Lore" → um local com "lore" no nome)
+      const idInIndice = !!(idNorm && idNorm !== '—' && (REDONDETA_DATA.indice || []).some(e => (e['ID Universal'] || '').trim() === idNorm));
+      if (!found && nameNorm && !idInIndice) {
         for (const e of all) {
           const it = e.item;
           const itName = (it['Personagem'] || it['Nome'] || it['NPC'] || it['Vilão / Força'] || it['Organização / Instituição'] || it['Item / Artefato'] || it['Evento / Campanha'] || it['Local'] || it['Povo / Etnia'] || it['Termo'] || it['Tarefa'] || it['Conceito / Ciência'] || it['Documento / Fonte'] || it['Nome / Entidade'] || it['Entidade'] || '').toLowerCase().trim();
@@ -3172,13 +3196,11 @@
 
       // 4. Fallback search in indice
       if (!found && REDONDETA_DATA.indice && Array.isArray(REDONDETA_DATA.indice)) {
-        const ind = REDONDETA_DATA.indice.find(e => {
-          const eId = (e['ID Universal'] || '').trim();
-          const eName = (e['Nome / Entidade'] || '').toLowerCase().trim();
-          if (idNorm && idNorm !== '—' && eId === idNorm) return true;
-          if (nameNorm && (eName === nameNorm || eName.includes(nameNorm) || nameNorm.includes(eName))) return true;
-          return false;
-        });
+        const ind = REDONDETA_DATA.indice.find(e => idNorm && idNorm !== '—' && (e['ID Universal'] || '').trim() === idNorm) ||
+          REDONDETA_DATA.indice.find(e => {
+            const eName = (e['Nome / Entidade'] || '').toLowerCase().trim();
+            return !!(nameNorm && eName && (eName === nameNorm || eName.includes(nameNorm) || nameNorm.includes(eName)));
+          });
         if (ind) {
           found = {
             'ID Universal': ind['ID Universal'],
@@ -3445,23 +3467,24 @@
           </div>
         `;
       } else if (hubId === 'CENTRO_ARQUIVO') {
+        const st = getAcervoStats();
         body.innerHTML = `
           <div style="max-width: 1050px; margin: 0 auto;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 30px;">
               <div style="background: #fff; border: 1.5px solid var(--border-sepia); padding: 16px; border-radius: 8px; text-align: center; box-shadow: var(--shadow-card);">
-                <div style="font-size: 1.8rem; font-weight: 900; color: #8c5b16; font-family: var(--font-title);">${hub.stats.total_entities}</div>
+                <div style="font-size: 1.8rem; font-weight: 900; color: #8c5b16; font-family: var(--font-title);">${fmtNum(st.registros)}</div>
                 <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-ink-muted);">Registros Indexados</div>
               </div>
               <div style="background: #fff; border: 1.5px solid #28a745; padding: 16px; border-radius: 8px; text-align: center; box-shadow: var(--shadow-card);">
-                <div style="font-size: 1.8rem; font-weight: 900; color: #1e7e34; font-family: var(--font-title);">${hub.stats.confirmed}</div>
-                <div style="font-size: 0.82rem; font-weight: 700; color: #1e7e34;">Confirmadas (${hub.stats.integrity_rate})</div>
+                <div style="font-size: 1.8rem; font-weight: 900; color: #1e7e34; font-family: var(--font-title);">${fmtNum(st.confirmadas)}</div>
+                <div style="font-size: 0.82rem; font-weight: 700; color: #1e7e34;">Confirmadas (${st.taxa})</div>
               </div>
               <div style="background: #fff; border: 1.5px solid #6f42c1; padding: 16px; border-radius: 8px; text-align: center; box-shadow: var(--shadow-card);">
-                <div style="font-size: 1.8rem; font-weight: 900; color: #6f42c1; font-family: var(--font-title);">${hub.stats.relations_count}</div>
+                <div style="font-size: 1.8rem; font-weight: 900; color: #6f42c1; font-family: var(--font-title);">${fmtNum(st.relacoes)}</div>
                 <div style="font-size: 0.82rem; font-weight: 700; color: #6f42c1;">Relações Hiperconectadas</div>
               </div>
               <div style="background: #fff; border: 1.5px solid #17a2b8; padding: 16px; border-radius: 8px; text-align: center; box-shadow: var(--shadow-card);">
-                <div style="font-size: 1.8rem; font-weight: 900; color: #117a8b; font-family: var(--font-title);">${hub.stats.sources_count}</div>
+                <div style="font-size: 1.8rem; font-weight: 900; color: #117a8b; font-family: var(--font-title);">${fmtNum(st.fontes)}</div>
                 <div style="font-size: 0.82rem; font-weight: 700; color: #117a8b;">Fontes Primárias</div>
               </div>
             </div>
@@ -3658,7 +3681,7 @@
                       <strong>Este é o diferencial de Redondeta:</strong> o que a turma cria e decide não é apagado ao final do ano letivo. Leis promulgadas (como o livre casamento por Estália), universidades fundadas (como a UMEC por Sayani), tribunais (como a CIDAR por Zoya), hospitais, pontes e artefatos tornam-se <strong>história compartilhada do mundo</strong>.
                     </p>
                     <div style="background: #fffdf0; border-left: 4px solid var(--border-gold); padding: 10px 14px; margin-top: 12px; border-radius: 0 6px 6px 0; font-size: 0.92rem; color: #5a3e14;">
-                      <strong>Acervo Vivo Permanente:</strong> O legado é indexado na base oficial (1.023 registros indexados) e passa a constituir a paisagem que novas gerações de estudantes vão encontrar e habitar!
+                      <strong>Acervo Vivo Permanente:</strong> O legado é indexado na base oficial (${fmtNum(getAcervoStats().registros)} registros indexados) e passa a constituir a paisagem que novas gerações de estudantes vão encontrar e habitar!
                     </div>
                     <div style="margin-top: 14px;">
                       <button class="btn-action primary" style="padding: 6px 14px; font-size: 0.84rem;" onclick="openCompartment('OSO')">Explorar a Galeria de Legados e Transformações Autorais →</button>
@@ -3683,7 +3706,7 @@
             <!-- ÍNDICE RELACIONAL COMPACTO (OPCIONAL) -->
             <details style="margin-top: 30px; background: #fff; border: 1.5px solid var(--border-sepia); border-radius: 10px; padding: 14px 18px; box-shadow: var(--shadow-card);">
               <summary style="font-family: var(--font-title); font-size: 0.95rem; color: #735212; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
-                <span>🔗 Ver Índice Técnico das 379 Relações Mapeadas</span>
+                <span>🔗 Ver Índice Técnico das ${fmtNum(hub.relations.length)} Relações Mapeadas</span>
                 <span style="font-size: 0.78rem; background: #f6eedb; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border-brass);">Expandir ▾</span>
               </summary>
               <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
