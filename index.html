@@ -2742,7 +2742,7 @@
 
     function getItemYear(item) {
       if (!item) return '';
-      let y = item.Ano || item['Ano / Período'] || item['Período'] || item['Período / Ciclo'] || item['Ano / Ciclo'] || '';
+      let y = item['Ano letivo'] || item.Ano || item['Ano / Período'] || item['Período'] || item['Período / Ciclo'] || item['Ano / Ciclo'] || '';
       if (y) return String(y);
       const id = item['ID Universal'] || item['ID'] || item['ID Principal'] || (item['Nº'] ? 'MAZ-' + String(item['Nº']).padStart(3, '0') : '') || '';
       if (id && REDONDETA_DATA.indice) {
@@ -2890,21 +2890,21 @@
       card.onclick = () => openEntityDetail(item, cardType);
 
       const id = item['ID Universal'] || item['ID'] || item['ID Personagem'] || item['Nº'] || '';
-      const status = item['Status / Confiança'] || item['Status documental normalizado'] || item['Status'] || '';
+      const status = item['Status / Confiança'] || item['Status documental normalizado'] || item['Status'] || item['Status documental'] || '';
       const statusClass = status.toLowerCase().includes('confirmado') ? 'status-confirmado' : (status.toLowerCase().includes('provável') ? 'status-provavel' : 'status-desconhecido');
 
-      let title = item['Orbe'] || item['Tarefa'] || item['Título'] || item['Quest'] || item['Missão'] || item['Personagem'] || item['Nome'] || item['NPC'] || item['Vilão / Força'] || item['Organização / Instituição'] || item['Item / Artefato'] || item['Evento / Campanha'] || item['Local'] || item['Povo / Etnia'] || item['Tema'] || item['Termo'] || item['Documento'] || item['Ciclo'] || '';
+      let title = item['Aventura / Sessão'] || item['Aventuraula'] || item['Orbe'] || item['Tarefa'] || item['Título'] || item['Quest'] || item['Missão'] || item['Personagem'] || item['Nome'] || item['NPC'] || item['Vilão / Força'] || item['Organização / Instituição'] || item['Item / Artefato'] || item['Evento / Campanha'] || item['Local'] || item['Povo / Etnia'] || item['Tema'] || item['Termo'] || item['Documento'] || item['Ciclo'] || '';
       if (item['ODS de referência']) title = (String(item['ID Universal'] || '').startsWith('ORB-') ? 'Orbe ' : 'Mazela ') + item['Nº'] + ' — ' + item['ODS de referência'];
 
-      let subtitle = (item['Mazela correspondente (nome)'] ? ('Contém a Mazela: ' + item['Mazela correspondente (nome)']) : '') || item['Modalidade'] || item['Papel Social / Legado'] || item['Tipo / Função'] || item['Povo / Região'] || item['Tipo'] || item['Espécies / Grupos'] || item['Área'] || item['Categoria'] || (item['Antagonista Central'] ? ('Antagonista: ' + item['Antagonista Central']) : '') || '';
+      let subtitle = (item['Aventura / Sessão'] ? [item['Tipo'], item['Data real']].filter(Boolean).join(' · ') : '') || (item['Aventuraula'] ? (item['Data real'] || '') : '') || (item['Época no mundo'] && item['Evento / Campanha'] ? [item['Época no mundo'], item['Data no mundo']].filter(Boolean).join(' · ') : '') || (item['Mazela correspondente (nome)'] ? ('Contém a Mazela: ' + item['Mazela correspondente (nome)']) : '') || item['Modalidade'] || item['Papel Social / Legado'] || item['Tipo / Função'] || item['Povo / Região'] || item['Tipo'] || item['Espécies / Grupos'] || item['Área'] || item['Categoria'] || (item['Antagonista Central'] ? ('Antagonista: ' + item['Antagonista Central']) : '') || '';
 
       if (cardType === 'povo') {
         const pIcon = getPovoIcon(title, item['Espécies / Grupos']);
         title = `${pIcon} ${title}`;
       }
-      let snippet = item['Descrição / História'] || item['Descrição detalhada'] || item['Descrição'] || item['Manifestação documentada em Redondeta'] || item['Definição em Redondeta'] || item['Ação / Papel antagônico'] || item['Conflito / Objetivo'] || item['Descrição científica / conceitual'] || item['Descrição histórica'] || (item['Portadores / Guardiões 2023'] ? ('Portadores em 2023: ' + item['Portadores / Guardiões 2023']) : '') || item['Descrição / Efeito'] || item['Caracterização'] || item['Conflito Principal'] || item['Finalidade pedagógica'] || item['Transformação / Legado'] || item['Conteúdo prioritário'] || '';
+      let snippet = item['Esquema resumido'] || item['Acontecimentos principais'] || item['Descrição / História'] || item['Descrição detalhada'] || item['Descrição'] || item['Manifestação documentada em Redondeta'] || item['Definição em Redondeta'] || item['Ação / Papel antagônico'] || item['Conflito / Objetivo'] || item['Descrição científica / conceitual'] || item['Descrição histórica'] || (item['Portadores / Guardiões 2023'] ? ('Portadores em 2023: ' + item['Portadores / Guardiões 2023']) : '') || item['Descrição / Efeito'] || item['Caracterização'] || item['Conflito Principal'] || item['Finalidade pedagógica'] || item['Transformação / Legado'] || item['Conteúdo prioritário'] || '';
 
-      const year = item['Ano'] || item['Ano / Período'] || item['Período'] || item['Período / Ciclo'] || '';
+      const year = item['Ano letivo'] || item['Ano'] || item['Ano / Período'] || item['Período'] || item['Período / Ciclo'] || '';
 
       card.innerHTML = `
         <div class="card-top">
@@ -2943,8 +2943,8 @@
       if (modalBox) modalBox.scrollTop = 0;
 
       const id = item['ID Universal'] || item['ID'] || item['ID Personagem'] || item['Nº'] || '';
-      const status = item['Status / Confiança'] || item['Status documental normalizado'] || item['Status'] || '';
-      let title = item['Orbe'] || item['Personagem'] || item['Nome'] || item['NPC'] || item['Vilão / Força'] || item['Organização / Instituição'] || item['Item / Artefato'] || item['Evento / Campanha'] || item['Local'] || item['Povo / Etnia'] || item['Tema'] || item['Termo'] || item['Documento'] || item['Tarefa'] || item['Ciclo'] || item['Nome / Entidade'] || '';
+      const status = item['Status / Confiança'] || item['Status documental normalizado'] || item['Status'] || item['Status documental'] || '';
+      let title = item['Aventura / Sessão'] || item['Aventuraula'] || item['Orbe'] || item['Personagem'] || item['Nome'] || item['NPC'] || item['Vilão / Força'] || item['Organização / Instituição'] || item['Item / Artefato'] || item['Evento / Campanha'] || item['Local'] || item['Povo / Etnia'] || item['Tema'] || item['Termo'] || item['Documento'] || item['Tarefa'] || item['Ciclo'] || item['Nome / Entidade'] || '';
       if (item['ODS de referência']) title = (String(item['ID Universal'] || '').startsWith('ORB-') ? 'Orbe ' : 'Mazela ') + item['Nº'] + ' — ' + item['ODS de referência'];
       const isRelacao = cardType === 'relacao';
       if (isRelacao) title = `${item['Entidade A'] || ''} — ${item['Relação'] || ''} — ${item['Entidade B'] || ''}`;

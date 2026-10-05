@@ -19,12 +19,16 @@
 | Vem da planilha | Fica como está no `index.html` |
 |---|---|
 | Todas as abas de entidades, relações, índice, fichas, imagens, introduções e lacunas | Textos da Rosa dos Ventos (`meta`) e dos núcleos centrais |
-| Quests (aba `22_Quests_Tarefas`) | Campanhas e Arcos (não têm aba própria) |
-| | Quais termos aparecem em Mundo e Cosmologia e em Aventuraulas (seleção editorial) |
+| Quests (aba `22_Quests_Tarefas`) | Quais termos aparecem em Mundo e Cosmologia e entre os fundamentos de Aventuraulas (seleção editorial) |
+| Campanhas e Arcos (aba `23_Campanhas_Arcos`) | |
+| Aventuraulas dissecadas em 8 etapas (aba `24_Aventuraulas`) | |
 
 Regras aplicadas:
 
 - Registros com Status documental "Superado" não são publicados.
+- Aventuraulas (S) mostram primeiro as aventuraulas da aba 24 e depois os termos de fundamentos do método.
+- Eventos e Cronologia (SO) saem na ordem da coluna "Ordem no mundo" (acontecimentos no mundo de Redondeta, não a data das aulas).
+- Legados e Transformações (OSO) saem na ordem do ID do herói.
 - Continentes são os locais do tipo "Continente/região"; os demais tipos vão para Lugares.
 - Termos fora de Mundo e Cosmologia e de Aventuraulas não aparecem na Rosa, mas a busca abre a ficha completa.
 - Os números citados nos subtítulos (eventos, personagens, itens, fontes) são recalculados.

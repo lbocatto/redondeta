@@ -7,8 +7,10 @@ Requer: pip install openpyxl
 
 O que o script faz:
 - Lê cada aba da planilha e monta o objeto REDONDETA_DATA no formato que o site usa (todos os valores como texto).
-- Mantém do index.html atual o que não vem da planilha: textos da Rosa (meta), textos dos núcleos centrais,
-  Campanhas e Arcos, e as seleções editoriais de termos de Mundo e Cosmologia e de Aventuraulas.
+- Mantém do index.html atual o que não vem da planilha: textos da Rosa (meta), textos dos núcleos centrais
+  e as seleções editoriais de termos de Mundo e Cosmologia e de Aventuraulas (fundamentos do método).
+- Aventuraulas (S) = aba 24_Aventuraulas + os termos de fundamentos; Campanhas e Arcos (SSO) = aba 23_Campanhas_Arcos.
+- Eventos e Cronologia (SO) saem na ordem dos acontecimentos no mundo (coluna "Ordem no mundo").
 - Não publica registros com Status documental "Superado".
 - Troca nomes de alunos conhecidos pelas iniciais (rede de segurança; o certo é corrigir na planilha).
 - Grava o novo REDONDETA_DATA no index.html e atualiza o número de registros mostrado antes do JavaScript rodar.
@@ -74,9 +76,11 @@ def montar(wb, atual):
     termos = ler_aba(wb, '11_Termos_Conceitos')
     por_id = {r['ID']: r for r in termos}
     ids_n = [r['ID'] for r in antigo['mundo_cosmologia']]
-    ids_s = [r['ID'] for r in antigo['aventuraulas']]
+    ids_s = [r['ID'] for r in antigo['aventuraulas'] if r.get('ID', '').startswith('TERM-')]
     C['mundo_cosmologia'] = [por_id[i] for i in ids_n if i in por_id]
-    C['aventuraulas'] = [por_id[i] for i in ids_s if i in por_id]
+    # Aventuraulas: primeiro as aventuraulas dissecadas (aba 24), depois os termos de fundamentos do método
+    aventuraulas = ler_aba(wb, '24_Aventuraulas') if '24_Aventuraulas' in wb.sheetnames else []
+    C['aventuraulas'] = aventuraulas + [por_id[i] for i in ids_s if i in por_id]
     C['termos_complementares'] = [r for r in termos if r['ID'] not in set(ids_n) | set(ids_s)]
 
     # Locais: Continentes = Tipo "Continente/região" (+ exceções já no site, ex.: LOC-028); Lugares = os demais tipos
@@ -100,8 +104,14 @@ def montar(wb, atual):
         'mazelas': ler_aba(wb, '05_Mazelas'),
         'orbes': ler_aba(wb, '05B_Orbes'),
     }
-    C['eventos'] = ler_aba(wb, '10_Eventos_Campanhas')
-    C['percursos_autorais'] = ler_aba(wb, '19_Percursos_Autorais')
+    # Eventos na ordem dos acontecimentos no mundo; sem "Ordem no mundo" vão para o fim, na ordem da planilha
+    def ordem_no_mundo(r):
+        try:
+            return float(str(r.get('Ordem no mundo', '')).replace(',', '.'))
+        except ValueError:
+            return float('inf')
+    C['eventos'] = sorted(ler_aba(wb, '10_Eventos_Campanhas'), key=ordem_no_mundo)
+    C['percursos_autorais'] = sorted(ler_aba(wb, '19_Percursos_Autorais'), key=lambda r: r.get('ID Personagem', ''))
     C['magias'] = ler_aba(wb, '08_Magias_Poderes')
     C['saberes_referencias'] = {
         'referencias': ler_aba(wb, '15_Referencias_Cientificas'),
@@ -110,7 +120,9 @@ def montar(wb, atual):
     C['itens'] = ler_aba(wb, '09_Itens_Artefatos')
     if '22_Quests_Tarefas' in wb.sheetnames:
         C['quests_tarefas'] = ler_aba(wb, '22_Quests_Tarefas')
-    # campanhas_arcos não tem aba própria: continua como está no site
+    # Campanhas e Arcos: sessões em ordem real (2021 → 2026), cada ano aberto pela visão geral do ciclo (CAMP-AAAA-00)
+    if '23_Campanhas_Arcos' in wb.sheetnames:
+        C['campanhas_arcos'] = ler_aba(wb, '23_Campanhas_Arcos')
 
     novo['relations'] = ler_aba(wb, '16_Relacoes')
     novo['indice'] = ler_aba(wb, '18_Indice_Entidades')
