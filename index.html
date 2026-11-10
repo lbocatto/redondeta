@@ -2,32 +2,33 @@
 <html lang="pt-BR" data-theme="atlas-vivo"><head>
 <!-- Estatísticas Redondeta: preservar este bloco nas regenerações. -->
 <script id="redondeta-analytics">
-const REDONDETA_ANALYTICS = {measurementId: 'G-GKGZHGBL0Q', host: 'lbocatto.github.io', path: '/redondeta/'};
 function redondetaTrack(eventName, parameters) {
-  if (!window.redondetaAnalyticsEnabled || typeof window.gtag !== 'function') return;
+  if (!window.redondetaAnalyticsEnabled) return;
   window.gtag('event', eventName, parameters);
 }
+
 (function () {
-  const cfg = REDONDETA_ANALYTICS;
-  // Prévias locais e cópias em outros endereços não entram nas estatísticas.
-  if (location.protocol !== 'https:' || location.hostname !== cfg.host ||
-      !location.pathname.startsWith(cfg.path)) return;
+  if (location.protocol !== 'https:' ||
+      location.hostname !== 'lbocatto.github.io' ||
+      !location.pathname.startsWith('/redondeta/')) return;
+
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { window.dataLayer.push(arguments); };
-  window.gtag('js', new Date());
-  window.gtag('config', cfg.measurementId, {
+
+  window.gtag('set', {
     page_location: location.origin + location.pathname,
     allow_google_signals: false,
     allow_ad_personalization_signals: false
   });
+  window.gtag('js', new Date());
   window.redondetaAnalyticsEnabled = true;
+
   const tag = document.createElement('script');
   tag.async = true;
-  tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + cfg.measurementId;
+  tag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WBPXMP46';
   document.head.appendChild(tag);
 })();
-</script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="theme-color" content="#090c11">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
